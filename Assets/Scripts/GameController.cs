@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     public GameObject player;
     public Light2D global_light;
 
+    private LayerMask mask = 1 << 11; //only hookable
+
     void Start()
     {
         global = GameObject.Find("info").GetComponent<GlobalInfo>();
@@ -55,15 +57,11 @@ public class GameController : MonoBehaviour
                 case 1:
                     break;
                 case 2:
-                    RaycastHit2D[] hit = Physics2D.RaycastAll(player.transform.position, global.mouse_position - (Vector2)player.transform.position, 6f);
-                    if (hit.Length > 1 && !global.active_hook)
-                    {
-                        int number;
-                        if (hit.Length > 2 && hit[1].transform.CompareTag("Player")) number = 2;
-                        else if (!hit[1].transform.CompareTag("Player")) number = 1;
-                        else break;
-                        GameObject hook = Instantiate(hook_starter, hit[number].point, Quaternion.identity);
-                        hook.GetComponent<HingeJoint2D>().connectedBody = hit[number].rigidbody;
+                    RaycastHit2D hit = Physics2D.Raycast(player.transform.position, global.mouse_position - (Vector2)player.transform.position, 6f, mask);
+					if (hit && !global.active_hook)
+					{
+                        GameObject hook = Instantiate(hook_starter, hit.point, Quaternion.identity);
+                        hook.GetComponent<HingeJoint2D>().connectedBody = hit.rigidbody;
                     }
                     break;
             }

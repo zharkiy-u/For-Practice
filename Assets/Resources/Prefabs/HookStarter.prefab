@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6548682222247849733}
   - component: {fileID: 3590130191692754526}
   - component: {fileID: -4406637853146961027}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookStarter
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5506228103555721790}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
