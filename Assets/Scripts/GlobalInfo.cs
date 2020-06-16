@@ -18,7 +18,11 @@ public class GlobalInfo : MonoBehaviour
 
     public float power_value = 1f;
 
+    //public bool inWater = false;
+
+    public bool inNoPowerZone = false;
     public bool inWater = false;
+
     // Start is called before the first frame update
     void Start()
     {
