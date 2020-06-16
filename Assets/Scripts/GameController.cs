@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public Light2D global_light;
 
     private LayerMask mask = 1 << 11; //only hookable
+    private LayerMask exeptions = (1 << 13); //purple
 
     void Start()
     {
@@ -58,7 +59,8 @@ public class GameController : MonoBehaviour
                     break;
                 case 2:
                     RaycastHit2D hit = Physics2D.Raycast(player.transform.position, global.mouse_position - (Vector2)player.transform.position, 6f, mask);
-					if (hit && !global.active_hook)
+                    RaycastHit2D exeption = Physics2D.Raycast(player.transform.position, global.mouse_position - (Vector2)player.transform.position, 6f, exeptions);
+                    if (hit && !global.active_hook && (!exeption || hit.distance < exeption.distance))
 					{
                         GameObject hook = Instantiate(hook_starter, hit.point, Quaternion.identity);
                         hook.GetComponent<HingeJoint2D>().connectedBody = hit.rigidbody;

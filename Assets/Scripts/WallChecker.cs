@@ -13,11 +13,17 @@ public class WallChecker : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Platform")) isWall = false;
+        //if (collision.CompareTag("Platform")) isWall = false;
+        if (collision.gameObject.layer == 13) isWall = false; // 13 == Blue
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13 && !global.inWater) isWall = true;
+    }
+
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Platform") && !global.inWater) isWall = true;
-    }
+    }*/
 }

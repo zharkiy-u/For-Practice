@@ -15,7 +15,8 @@ public class HookGenerator : MonoBehaviour
     private void Start()
     {
         global = GameObject.Find("info").GetComponent<GlobalInfo>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
         links_number = (int)(distance / 0.18f);

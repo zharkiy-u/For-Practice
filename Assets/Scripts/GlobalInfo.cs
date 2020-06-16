@@ -7,6 +7,7 @@ public class GlobalInfo : MonoBehaviour
     public float mouseX;
     public float mouseY;
     public Vector2 mouse_position;
+    public Vector2 player_position;
 
     public float power;
     public float maxDistance;
@@ -28,6 +29,7 @@ public class GlobalInfo : MonoBehaviour
     void Update()
     {
         mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        player_position = GameObject.FindWithTag("Player").transform.position;
         mouseX = mouse_position.x;
         mouseY = mouse_position.y;
     }

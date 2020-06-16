@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private GlobalInfo global;
 
-    private GroundChecker ground_cheker;
+    private GroundChecker ground_checker;
     private WallChecker left, right;
 
     private Rigidbody2D rb;
@@ -25,10 +26,12 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         global = GameObject.Find("info").GetComponent<GlobalInfo>();
-        ground_cheker = GameObject.Find("GroundChecker").GetComponent<GroundChecker>();
+        ground_checker = GameObject.Find("GroundChecker").GetComponent<GroundChecker>();
         left = GameObject.Find("Left").GetComponent<WallChecker>();
         right = GameObject.Find("Right").GetComponent<WallChecker>();
     }
+
+    public Text text;
 
     private void Update()
     {
@@ -59,7 +62,8 @@ public class PlayerController : MonoBehaviour
                 
             }*/
         }
-        if (ground_cheker.isGround) direction = 0;
+        text.text = keep.ToString();
+        if (ground_checker.isGround) direction = 0;
     }
 
     void FixedUpdate()
@@ -86,7 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             //if (global.inWater) rb.velocity += Vector2.up * 0.7f;
             //else if (ground_cheker.isGround) rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
-            if (ground_cheker.isGround) rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            if (ground_checker.isGround) rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
             else
             {
                 if (left.isWall)
