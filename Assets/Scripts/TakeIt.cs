@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TakeIt : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class TakeIt : MonoBehaviour
     GlobalInfo global;
     public Vector2 startPos;
 
-    private LayerMask mask = (1 << 8) | (1 << 11) | (1 << 12) | (1 << 13); //player, hookable, purple, blue layers
+    private LayerMask mask = (1 << 8) | (1 << 11) | (1 << 12) | (1 << 13) | (1 << 16) | (1 << 17); //player, hookable, purple, blue, wall, box layers
 
     private void Start()
     {
@@ -66,16 +65,14 @@ public class TakeIt : MonoBehaviour
                 if (!hitToPlayer || !hitToObject) return false;
                 if (hitToPlayer.collider.CompareTag("Player") && hitToObject.collider.gameObject == gameObject) return true;
                 return false;
-            default:
-                return false;
 		}
+        return false;
 	}
 
     private void OnMouseDown()
     {
         isTaken = true;
     }
-
     private void OnMouseUp()
     {
         isTaken = false;

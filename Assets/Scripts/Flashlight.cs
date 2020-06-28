@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
 
 public class Flashlight : MonoBehaviour
@@ -16,7 +14,7 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.L))
+		if (Input.GetKeyDown(KeyCode.Q))
 		{
             if (light2d.enabled) light2d.enabled = false;
             else light2d.enabled = true;

@@ -1,40 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GlobalInfo : MonoBehaviour
 {
-    public float mouseX;
-    public float mouseY;
+    [Header("Positions")]
     public Vector2 mouse_position;
     public Vector2 player_position;
 
+    [Header("Skills")]
     public float power;
     public float maxDistance;
     public int skill_number;
-    public const int skill_count = 5;
     public GameObject active_hook;
-    public float camera_scale = 10f;
-
     public float power_value = 1f;
 
-    //public bool inWater = false;
-
+    [Header("Zones")]
     public bool inNoPowerZone = false;
     public bool inWater = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         skill_number = 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
         mouse_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        player_position = GameObject.FindWithTag("Player").transform.position;
-        mouseX = mouse_position.x;
-        mouseY = mouse_position.y;
+        player_position = GameObject.Find("Player").transform.position;
     }
 }

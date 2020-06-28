@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HookGenerator : MonoBehaviour
 {
@@ -15,11 +13,10 @@ public class HookGenerator : MonoBehaviour
     private void Start()
     {
         global = GameObject.Find("info").GetComponent<GlobalInfo>();
-        //player = GameObject.FindGameObjectWithTag("Player");
         player = GameObject.Find("Player");
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
-        links_number = (int)(distance / 0.18f);
+        links_number = (int)(distance / 0.28f);
 
         float angle = Vector2.Angle(player.transform.position - hook.transform.position, -hook.transform.up);
         hook.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -49,10 +46,7 @@ public class HookGenerator : MonoBehaviour
             {
                 player.GetComponent<DistanceJoint2D>().enabled = true;
                 player.GetComponent<DistanceJoint2D>().connectedBody = last_link.GetComponent<Rigidbody2D>();
-                player.GetComponent<PlayerController>().keep = true;
                 last_link = null;
-                
-                //if (global.active_hook) Destroy(global.active_hook);
                 global.active_hook = hook.gameObject;
             }
         }

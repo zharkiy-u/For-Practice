@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,16 +10,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jump;
-
-
-    //jump direction
-    // -1 - left
-    //  1 - right
-    //  0 - none
-    public int direction = 0;
-
-
-    public bool keep = false;
 
     void Start()
     {
@@ -35,12 +24,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (keep)
+            if (global.active_hook)
             {
                 GetComponent<DistanceJoint2D>().enabled = false;
                 GetComponent<DistanceJoint2D>().connectedBody = null;
-                keep = false;
-                if (global.active_hook) Destroy(global.active_hook);
+                Destroy(global.active_hook);
                 return;
             }
             /*RaycastHit2D [] hit = Physics2D.RaycastAll(transform.position, global.mouse_position - (Vector2)transform.position, 1.5f);
@@ -60,29 +48,25 @@ public class PlayerController : MonoBehaviour
                 
             }*/
         }
-        ///////if (ground_checker.isGround) direction = 0;
     }
 
     void FixedUpdate()
     {
         float speed_limit;
         if (!global.inWater) speed_limit = 7f;
-        else speed_limit = 2f;
+        else speed_limit = 4f;
 
-        if (rb.velocity.y < -speed_limit) rb.velocity = new Vector2(rb.velocity.x, -speed_limit); //fall speed limit
+        if (rb.velocity.y < -speed_limit * 2) rb.velocity = new Vector2(rb.velocity.x, -speed_limit * 2); //fall speed limit
         if (global.inWater && rb.velocity.y > speed_limit) rb.velocity = new Vector2(rb.velocity.x, speed_limit);
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && rb.velocity.x > -speed_limit)
         {
-            ///////if (direction > 0 && !keep) rb.velocity = new Vector2(0f, rb.velocity.y);
-            ///////else 
-            if (rb.velocity.x > -speed_limit) rb.AddForce(new Vector2(-transform.right.x, 0) * speed);
+            rb.AddForce(new Vector2(-transform.right.x, 0) * speed);
         }
-        if (Input.GetKey(KeyCode.D))
+
+        if (Input.GetKey(KeyCode.D) && rb.velocity.x < speed_limit)
         {
-            ///////if (direction < 0 && !keep) rb.velocity = new Vector2(0f, rb.velocity.y);
-            ///////else 
-            if (rb.velocity.x < speed_limit) rb.AddForce(new Vector2(transform.right.x, 0) * speed);
+            rb.AddForce(new Vector2(transform.right.x, 0) * speed);
         }
 
 		if (Input.GetKey(KeyCode.Space) && global.inWater)
@@ -90,13 +74,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity += Vector2.up * 0.7f;
             return;
         }
-        
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //if (global.inWater) rb.velocity += Vector2.up * 0.7f;
-            //else if (ground_checker.isGround) rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
-            if (ground_checker.isGround) rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+            if (ground_checker.isGround)
+			{
+                rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+            }
             else
             {
                 if (left.isWall)
@@ -110,9 +93,23 @@ public class PlayerController : MonoBehaviour
                     rb.AddForce(new Vector2(-jump / 2, jump), ForceMode2D.Impulse);
                 }
             }
-            ///////if (rb.velocity.x < 0) direction = -1;
-            ///////else if (rb.velocity.x > 0) direction = 1;
-            //else direction = 0;
+        }
+        FixGravity();
+    }
+
+    private void FixGravity()
+	{
+        float gravity;
+        if (ground_checker.isGround) gravity = 0;
+        else gravity = Physics2D.gravity.y;
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * gravity * 0.04f;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            rb.velocity += Vector2.up * gravity * 0.02f;
         }
     }
 }

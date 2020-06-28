@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NoPowerZone : MonoBehaviour
 {
@@ -15,7 +13,6 @@ public class NoPowerZone : MonoBehaviour
 	{
         global.inNoPowerZone = true;
 	}
-
 	private void OnMouseExit()
 	{
         global.inNoPowerZone = false;
