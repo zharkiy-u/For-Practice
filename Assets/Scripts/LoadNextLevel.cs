@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class LoadNextLevel : MonoBehaviour
 {
-	[Range(2, 8)]
+	[Range(2, 9)]
 	public int next_level_number;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.CompareTag("Player"))
 		{
-			if(next_level_number < 8) ChangeLevel();
+			if(next_level_number < 9) ChangeLevel();
 			else SceneManager.LoadScene("Menu_levels");
 		}
 	}

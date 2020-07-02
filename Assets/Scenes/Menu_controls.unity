@@ -1261,9 +1261,9 @@ MonoBehaviour:
 
     F1 - respawn
 
-    F2 - reload level
+    F2 - restart level
 
-    LMB, RMB, E - skills options'
+    LMB, RMB, E - skills'' options'
 --- !u!222 &1701515253
 CanvasRenderer:
   m_ObjectHideFlags: 0

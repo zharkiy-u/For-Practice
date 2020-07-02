@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
 
+    public GameObject hook_starter;
+
+    private LayerMask mask = (1 << 11) | (1 << 13) | (1 << 16) | (1 << 17); //hookable, blue, wall, box layers
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,29 +28,56 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (global.active_hook)
+            if (global.active_hook || GetComponent<DistanceJoint2D>().isActiveAndEnabled)
             {
                 GetComponent<DistanceJoint2D>().enabled = false;
                 GetComponent<DistanceJoint2D>().connectedBody = null;
-                Destroy(global.active_hook);
-                return;
+                if (global.active_hook) Destroy(global.active_hook);
             }
-            /*RaycastHit2D [] hit = Physics2D.RaycastAll(transform.position, global.mouse_position - (Vector2)transform.position, 1.5f);
-            Debug.DrawLine(transform.position, global.mouse_position, Color.red);
-
-            if (hit.Length > 1)
-            {
-                if (!keep)
+			else
+			{
+                LayerMask mask = 1 << 9; //rope layer
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, global.mouse_position - (Vector2)transform.position, 1.5f, mask);
+                if (hit)
                 {
-                    if (hit[1].collider.CompareTag("Rope"))
-                    {
-                        GetComponent<DistanceJoint2D>().enabled = true;
-                        GetComponent<DistanceJoint2D>().connectedBody = hit[1].rigidbody;
-                        keep = true;
-                    }
+                    GetComponent<DistanceJoint2D>().enabled = true;
+                    GetComponent<DistanceJoint2D>().connectedBody = hit.rigidbody;
                 }
-                
-            }*/
+            }
+        }
+
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
+        {
+            switch (global.skill_number)
+            {
+                case 1:
+                    if (global.power_value < 1) global.power_value += 0.01f;
+                    break;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            switch (global.skill_number)
+            {
+                case 1:
+                    break;
+                case 2:
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, global.mouse_position - (Vector2)transform.position, 10f, mask);
+                    if (hit && hit.collider.gameObject.layer == 11)
+                    {
+                        if (global.active_hook)
+                        {
+                            GetComponent<DistanceJoint2D>().enabled = false;
+                            GetComponent<DistanceJoint2D>().connectedBody = null;
+                            Destroy(global.active_hook);
+                        }
+
+                        GameObject hook = Instantiate(hook_starter, hit.point, Quaternion.identity);
+                        hook.GetComponent<HingeJoint2D>().connectedBody = hit.rigidbody;
+                    }
+                    break;
+            }
         }
     }
 

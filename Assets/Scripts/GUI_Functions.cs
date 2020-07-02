@@ -6,10 +6,14 @@ public class GUI_Functions : MonoBehaviour
     GlobalInfo global;
     public Text skill_name;
     public Slider skill_power;
+    private GameObject gui_f;
+
+    public bool isButton = false;
 
     private void Start()
     {
         global = GameObject.Find("info").GetComponent<GlobalInfo>();
+        gui_f = GameObject.Find("ShowF");
     }
 
     void Update()
@@ -26,5 +30,12 @@ public class GUI_Functions : MonoBehaviour
                 skill_power.gameObject.SetActive(false);
                 break;
         }
+        ShowF();
     }
+
+    private void ShowF()
+	{
+		if (isButton) gui_f.SetActive(true);
+		else gui_f.SetActive(false);
+	}
 }

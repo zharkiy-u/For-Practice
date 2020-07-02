@@ -17,6 +17,7 @@ public class HookGenerator : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.transform.position);
         links_number = (int)(distance / 0.28f);
+        if (links_number == 0) links_number = 1;
 
         float angle = Vector2.Angle(player.transform.position - hook.transform.position, -hook.transform.up);
         hook.transform.rotation = Quaternion.Euler(0, 0, angle);

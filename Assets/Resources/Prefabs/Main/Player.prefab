@@ -150,6 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   jump: 7
+  hook_starter: {fileID: 2975694494772905586, guid: 7fe7abc6ef48c934394bcf5840dff208,
+    type: 3}
 --- !u!232 &1904839338218020747
 DistanceJoint2D:
   m_ObjectHideFlags: 0

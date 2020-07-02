@@ -5,7 +5,7 @@ public class ButtonFunc : MonoBehaviour
 {
     public Joint2D joint;
 	public float motor_speed;
-	private GameObject gui_f;
+	//private GameObject gui_f;
 
 	private enum Joints
 	{
@@ -23,7 +23,7 @@ public class ButtonFunc : MonoBehaviour
 	private bool isActive = false;
 	public bool isGate;
 
-	private bool isPlayer = false;
+	public bool isPlayer = false;
 	private bool ready = true;
 
 	private void Start()
@@ -31,13 +31,14 @@ public class ButtonFunc : MonoBehaviour
 		if (joint is HingeJoint2D) joint_type = Joints.hinge;
 		if (joint is SliderJoint2D) joint_type = Joints.slider;
 		startPos = transform.position;
-		gui_f = GameObject.Find("ShowF");
+		//gui_f = GameObject.Find("ShowF");
 	}
 
 	private void Update()
 	{
 		if ((Input.GetKeyDown(KeyCode.F) && button is Buttons.wall && isPlayer) || (CheckPush() && button is Buttons.push))
 		{
+			Play_Switch_Sound();
 			SwitchJoint();
 		}
 		switch (joint_type)
@@ -48,16 +49,25 @@ public class ButtonFunc : MonoBehaviour
 				if(!isGate) ChangeSliderDirection();
 				break;
 		}
-		ShowF();
+		//ShowF();
 	}
 
-	private void OnTriggerStay2D(Collider2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player")) isPlayer = true;
+		//Debug.Log(collision.gameObject.tag);
+		if (collision.CompareTag("Player"))
+		{
+			isPlayer = true;
+			GameObject.Find("GUI").GetComponent<GUI_Functions>().isButton = true;
+		}
 	}
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player")) isPlayer = false;
+		if (collision.CompareTag("Player"))
+		{
+			isPlayer = false;
+			GameObject.Find("GUI").GetComponent<GUI_Functions>().isButton = false;
+		}
 	}
 
 	private void ChangeSliderDirection()
@@ -119,9 +129,14 @@ public class ButtonFunc : MonoBehaviour
 		ready = true;
 	}
 
-	private void ShowF()
+	/*private void ShowF()
 	{
 		if (isPlayer) gui_f.SetActive(true);
 		else gui_f.SetActive(false);
+	}*/
+
+	private void Play_Switch_Sound()
+	{
+		GameObject.Find("Soundtrack").GetComponent<Soundtrack>().event_number = 2;
 	}
 }
