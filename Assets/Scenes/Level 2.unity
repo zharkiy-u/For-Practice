@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -926,6 +926,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &626682328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1160985853322661138, guid: d647afb64621c9d418d60f39932d6c48,
+    type: 3}
+  m_PrefabInstance: {fileID: 1018816275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &632057442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2114,6 +2126,21 @@ PrefabInstance:
     - target: {fileID: 1160985854199073322, guid: d647afb64621c9d418d60f39932d6c48,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160985854199073322, guid: d647afb64621c9d418d60f39932d6c48,
+        type: 3}
+      propertyPath: skill_power
+      value: 
+      objectReference: {fileID: 1235809033}
+    - target: {fileID: 1160985854199073322, guid: d647afb64621c9d418d60f39932d6c48,
+        type: 3}
+      propertyPath: skill_name
+      value: 
+      objectReference: {fileID: 626682328}
+    - target: {fileID: 1160985854199073322, guid: d647afb64621c9d418d60f39932d6c48,
+        type: 3}
+      propertyPath: skills_on
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1160985854500295057, guid: d647afb64621c9d418d60f39932d6c48,
@@ -2213,6 +2240,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde1dd72b9d67d40b5b5878d2798fe2, type: 3}
+--- !u!114 &1235809033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1160985854500295059, guid: d647afb64621c9d418d60f39932d6c48,
+    type: 3}
+  m_PrefabInstance: {fileID: 1018816275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1306605245
 PrefabInstance:
   m_ObjectHideFlags: 0

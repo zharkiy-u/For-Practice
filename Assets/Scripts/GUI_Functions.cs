@@ -9,6 +9,7 @@ public class GUI_Functions : MonoBehaviour
     private GameObject gui_f;
 
     public bool isButton = false;
+    public bool skills_on = true;
 
     private void Start()
     {
@@ -18,17 +19,20 @@ public class GUI_Functions : MonoBehaviour
 
     void Update()
     {
-        switch (global.skill_number)
-        {
-            case 1:
-                skill_name.text = "Telekinesis";
-                skill_power.gameObject.SetActive(true);
-                skill_power.value = global.power_value;
-                break;
-            case 2:
-                skill_name.text = "Hook";
-                skill_power.gameObject.SetActive(false);
-                break;
+		if (skills_on)
+		{
+            switch (global.skill_number)
+            {
+                case 1:
+                    skill_name.text = "Telekinesis";
+                    skill_power.gameObject.SetActive(true);
+                    skill_power.value = global.power_value;
+                    break;
+                case 2:
+                    skill_name.text = "Hook";
+                    skill_power.gameObject.SetActive(false);
+                    break;
+            }
         }
         ShowF();
     }

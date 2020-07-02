@@ -5,7 +5,6 @@ public class ButtonFunc : MonoBehaviour
 {
     public Joint2D joint;
 	public float motor_speed;
-	//private GameObject gui_f;
 
 	private enum Joints
 	{
@@ -31,7 +30,6 @@ public class ButtonFunc : MonoBehaviour
 		if (joint is HingeJoint2D) joint_type = Joints.hinge;
 		if (joint is SliderJoint2D) joint_type = Joints.slider;
 		startPos = transform.position;
-		//gui_f = GameObject.Find("ShowF");
 	}
 
 	private void Update()
@@ -49,12 +47,10 @@ public class ButtonFunc : MonoBehaviour
 				if(!isGate) ChangeSliderDirection();
 				break;
 		}
-		//ShowF();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		//Debug.Log(collision.gameObject.tag);
 		if (collision.CompareTag("Player"))
 		{
 			isPlayer = true;
@@ -128,12 +124,6 @@ public class ButtonFunc : MonoBehaviour
 		yield return new WaitForSeconds(second);
 		ready = true;
 	}
-
-	/*private void ShowF()
-	{
-		if (isPlayer) gui_f.SetActive(true);
-		else gui_f.SetActive(false);
-	}*/
 
 	private void Play_Switch_Sound()
 	{
